@@ -11,7 +11,7 @@ class ExpenseTypeController extends Controller
     {
 
         $expenseTypes = Expense_Type::orderBy('id', 'desc')->paginate(10);
-        return view('Expenses.types.index', compact('expenseTypes'));
+        return view('expenses.types.index', compact('expenseTypes'));
     }
 
     // Show create form
