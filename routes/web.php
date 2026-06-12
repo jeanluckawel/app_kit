@@ -8,6 +8,7 @@ use App\Http\Controllers\EmployeeExport;
 use App\Http\Controllers\EmployeeImportController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseTypeController;
+use App\Http\Controllers\FlourVoucherController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrgController;
@@ -313,7 +314,28 @@ Route::middleware(['auth','verified'])->group(function () {
             return Excel::download(new ChildrenExport, 'children_kit_service.xlsx');
         })->name('children.export');
 
+    Route::prefix('flour-vouchers')
+        ->name('flour-voucher.')
+        ->group(function () {
 
+            Route::get('/', [FlourVoucherController::class, 'index'])
+                ->name('index');
+
+            Route::post('/generate', [FlourVoucherController::class, 'generate'])
+                ->name('generate');
+
+            Route::get('/{voucher}', [FlourVoucherController::class, 'show'])
+                ->name('show');
+
+            Route::get('/{voucher}/print', [FlourVoucherController::class, 'print'])
+                ->name('print');
+
+            Route::post('/{voucher}/redeem', [FlourVoucherController::class, 'redeem'])
+                ->name('redeem');
+
+            Route::delete('/{voucher}', [FlourVoucherController::class, 'destroy'])
+                ->name('destroy');
+        });
 
 
 

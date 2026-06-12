@@ -294,29 +294,37 @@
                                 <label class="form-label fw-bold">Department</label>
                                 <select id="department" name="department" class="form-select" style="border-radius:0;">
                                     <option value="">Select Department</option>
+
                                     @foreach($departments as $department)
-{{--                                        <option value="{{ $department->id }}"--}}
-{{--                                            {{ old('department', $employee->company?->departmentRelation->name) == $department->name ? 'selected' : '' }}>--}}
-{{--                                            {{ $department->name }}--}}
-{{--                                        </option>--}}
-                                        <option value="{{ $department->id }}">
+                                        <option value="{{ $department->id }}"
+                                            {{ $employee->company?->department == $department->id ? 'selected' : '' }}>
                                             {{ $department->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
 
+
+
+
+
                             {{-- Section --}}
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Section</label>
+{{--                                <p>--}}
+{{--                                    {{ 'hi' . $employee->company?->section  }}--}}
+{{--                                    {{ 'hi' .  $employee->company?->sectionRelation?->name  }}--}}
+{{--                                </p>--}}
                                 <select id="section" name="section" class="form-select" style="border-radius:0;">
                                     <option value="">Select Section</option>
+
                                     @foreach($sections as $section)
-                                        <option value="{{ $section->id }}">
-{{--                                            {{ old('section',$employee->company->name) == $section->id ? 'selected' : '' }}>--}}
+                                        <option value="{{ $section->id }}"
+                                            {{ old('section', $employee->company?->sectionRelation?->id) == $section->id ? 'selected' : '' }}>
                                             {{ $section->name }}
                                         </option>
                                     @endforeach
+
                                 </select>
                             </div>
 
