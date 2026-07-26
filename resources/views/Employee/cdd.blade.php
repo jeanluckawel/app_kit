@@ -1,198 +1,478 @@
 @extends('layoutsddd.app')
 
-@section('title', 'Create employee - KIT SERVICES')
+@section('title','Contrats CDD - KIT SERVICES')
 
 @section('content')
 
-    <div class="card mb-4 m-5">
+    <div class="container-fluid p-5">
 
-        <!-- CDD Contracts Header -->
-        <div class="card-header d-flex align-items-center"
-             style="background-color: #FF6600; color: #fff; border-radius:0;">
-            <h3 class="card-title mb-0">CDD Contracts</h3>
-
-            <nav aria-label="breadcrumb" class="ms-auto">
-                <ol class="breadcrumb mb-0 bg-transparent">
-
-                    @can('dashboard')
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('dashboard') }}" class="text-white">Home</a>
-                        </li>
-                    @endcan
-
-                    @can('employee_list')
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('employee.list') }}" class="text-white">Employees</a>
-                        </li>
-                    @endcan
-
-                    <li class="breadcrumb-item active text-white" aria-current="page">CDD Contracts</li>
-                </ol>
-            </nav>
-        </div>
+        <div class="card shadow-sm mb-4">
 
 
-        <div class="card-body">
+            {{-- HEADER --}}
+            <div class="card-header d-flex align-items-center"
+                 style="background:#FF6600;color:#fff;">
 
 
-            <div class="row mb-3">
-                <div class="col-md-4">
+                {{-- TITRE --}}
+                <h3 class="card-title mb-0">
+
+                    <i class="bi bi-file-earmark-text-fill me-2"></i>
+
+                    Contrats CDD
+
+                </h3>
+
+
+
+                {{-- OUTILS --}}
+                <div class="card-tools ms-auto d-flex align-items-center gap-2">
+
+
+                    {{-- RECHERCHE --}}
                     <input
                         type="text"
                         id="searchEmployee"
-                        class="form-control"
-                        placeholder="Search by Employee and full name"
-                    >
+                        class="form-control form-control-sm"
+                        style="width:230px;"
+                        placeholder="Rechercher un employé...">
+
+
+
+                    {{-- BREADCRUMB --}}
+                    <div style="height:25px;border-left:1px solid rgba(255,255,255,.5);"></div>
+
+
+                    <nav aria-label="breadcrumb">
+
+                        <ol class="breadcrumb mb-0">
+
+
+                            @can('dashboard')
+
+                                <li class="breadcrumb-item">
+
+                                    <a href="{{ route('dashboard') }}"
+                                       class="text-white text-decoration-none">
+
+                                        <i class="bi bi-house-door-fill me-1"></i>
+
+                                        Tableau de bord
+
+                                    </a>
+
+                                </li>
+
+                            @endcan
+
+
+
+                            @can('employee_list')
+
+                                <li class="breadcrumb-item">
+
+                                    <a href="{{ route('employee.list') }}"
+                                       class="text-white text-decoration-none">
+
+                                        Employés
+
+                                    </a>
+
+                                </li>
+
+                            @endcan
+
+
+
+                            <li class="breadcrumb-item active text-white">
+
+                                Contrats CDD
+
+                            </li>
+
+
+                        </ol>
+
+                    </nav>
+
+
                 </div>
+
+
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle text-nowrap">
-                    <thead class="table-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Employee</th>
-                        <th>Department</th>
-                        <th>Age</th>
-                        <th>Salary</th>
-                        <th>Hire Date</th>
-
-                        <th>Contract</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
-                    </thead>
 
 
-                    <tbody id="employeeTable">
 
-                    @foreach($employees as $employee)
+            {{-- BODY --}}
+            <div class="card-body">
+
+
+                <div class="table-responsive">
+
+
+                    <table class="table table-bordered table-hover align-middle text-nowrap"
+                           id="employeeTable">
+
+
+                        <thead class="table-light">
+
                         <tr>
-                            <td>{{ $loop->iteration}}</td>
 
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    @php
-                                        $initials = strtoupper(substr($employee->first_name,0,1) . substr($employee->last_name,0,1));
-                                        $bgColor = '#ff7f00';
-                                    @endphp
+                            <th>#</th>
 
-                                    @if($employee->photo)
-                                        <img src="{{ asset('storage/'.$employee->photo) }}" alt="Photo" class="rounded-circle" width="45" height="45">
-                                    @else
-                                        <div class="rounded-circle d-flex justify-content-center align-items-center"
-                                             style="width:45px; height:45px; background-color: {{ $bgColor }}; color:white; font-weight:bold; font-size:16px;">
-                                            {{ $initials }}
-                                        </div>
-                                    @endif
+                            <th>Employé</th>
 
-                                    <div>
-                                        <strong>{{ $employee->first_name }}</strong><br>
-                                        <small>{{ $employee->employee_id }}</small>
-                                    </div>
-                                </div>
-                            </td>
+                            <th>Département</th>
 
-                            <td>{{ $employee->company->departmentRelation->name ?? 'N/A' }}</td>
+                            <th>Âge</th>
 
-                            <td>
-                                {{ $employee->age }}ans
-                            </td>
+                            <th>Salaire</th>
 
-                            <td><strong>{{ number_format($employee->salaries->base_salary,2 ?? 'N/A' ) }}</strong></td>
+                            <th>Date d'embauche</th>
 
-                            <td>{{ $employee->company->hire_date ?? 'N/A'}}</td>
+                            <th>Contrat</th>
 
-                            <td>{{$employee->company->contract_type}}</td>
-
-                            <td class="text-center">
-                                <div class="d-inline-flex gap-1">
-
-                                    <a href="{{ route('employee.view', $employee->id) }}"
-                                       class="btn btn-sm btn-outline-primary"
-                                       title="View">
-                                        View
-                                    </a>
-
-                                    <a href="{{ route('employee.edit', $employee->id) }}"
-                                       class="btn btn-sm btn-outline-warning"
-                                       title="Edit">
-                                        Edit
-                                    </a>
-
-                                    <a href="{{ route('employee.fin.contract', $employee->id) }}"
-                                       class="btn btn-sm btn-outline-danger"
-                                       title="End Contract">
-                                        End Contract
-                                    </a>
-
-                                    <a href="{{ route('employee.certificat', $employee->id) }}"
-                                       class="btn btn-sm btn-outline-danger"
-                                       title="Certificate">
-                                        Certificate
-                                    </a>
-
-                                    <button
-                                        class="btn btn-sm btn-outline-danger"
-                                        title="Disable"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#disableEmployeeModal"
-                                        data-employee-id="{{ $employee->id }}"
-                                    >
-                                        Disable
-                                    </button>
-
-                                </div>
-                            </td>
-
+                            <th class="text-center">
+                                Actions
+                            </th>
 
                         </tr>
-                    @endforeach
 
-                    </tbody>
-                </table>
+                        </thead>
+
+
+
+                        <tbody>
+
+
+                        @forelse($employees as $employee)
+
+
+                            <tr>
+
+
+                                <td>
+
+                                    {{ $loop->iteration }}
+
+                                </td>
+
+
+
+                                <td>
+
+
+                                    <div class="d-flex align-items-center gap-2">
+
+
+                                        @php
+
+                                            $initials =
+                                            strtoupper(
+                                                substr($employee->first_name,0,1)
+                                                .
+                                                substr($employee->last_name,0,1)
+                                            );
+
+                                        @endphp
+
+
+
+                                        @if($employee->photo)
+
+
+                                            <img
+                                                src="{{ asset('storage/'.$employee->photo) }}"
+                                                class="rounded-circle"
+                                                width="45"
+                                                height="45">
+
+
+                                        @else
+
+
+                                            <div class="rounded-circle d-flex justify-content-center align-items-center"
+                                                 style="width:45px;height:45px;background:#FF6600;color:#fff;font-weight:bold;">
+
+                                                {{ $initials }}
+
+                                            </div>
+
+
+                                        @endif
+
+
+
+                                        <div>
+
+
+                                            <strong>
+
+                                                {{ $employee->first_name }}
+                                                {{ $employee->last_name }}
+
+                                            </strong>
+
+
+                                            <br>
+
+
+                                            <small class="text-muted">
+
+                                                {{ $employee->employee_id }}
+
+                                            </small>
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </td>
+
+
+
+
+                                <td>
+
+                                    {{ $employee->company?->departmentRelation?->name ?? 'N/A' }}
+
+                                </td>
+
+
+
+
+                                <td>
+
+                                    {{ $employee->age }} ans
+
+                                </td>
+
+
+
+
+                                <td>
+
+                                    <strong>
+
+                                        {{ number_format($employee->salaries->base_salary ?? 0,2,',',' ') }}
+
+                                    </strong>
+
+                                </td>
+
+
+
+
+                                <td>
+
+                                    {{ $employee->company?->hire_date ?? 'N/A' }}
+
+                                </td>
+
+
+
+
+                                <td>
+
+
+                                <span class="badge"
+                                      style="background:#FF6600;">
+
+                                    {{ $employee->company?->contract_type }}
+
+                                </span>
+
+
+                                </td>
+
+
+
+
+                                <td class="text-center">
+
+
+                                    <div class="d-flex justify-content-center gap-1">
+
+
+
+                                        <a href="{{ route('employee.view',$employee->id) }}"
+                                           class="btn btn-outline-primary btn-sm action-btn">
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </a>
+
+
+
+
+                                        <a href="{{ route('employee.edit',$employee->id) }}"
+                                           class="btn btn-outline-warning btn-sm action-btn">
+
+                                            <i class="bi bi-pencil-square"></i>
+
+                                        </a>
+
+
+
+
+                                        <a href="{{ route('employee.fin.contract',$employee->id) }}"
+                                           class="btn btn-outline-danger btn-sm action-btn">
+
+                                            <i class="bi bi-calendar-x"></i>
+
+                                        </a>
+
+
+
+
+                                        <a href="{{ route('employee.certificat',$employee->id) }}"
+                                           class="btn btn-outline-success btn-sm action-btn">
+
+                                            <i class="bi bi-file-earmark-check"></i>
+
+                                        </a>
+
+
+
+
+                                        <button
+                                            class="btn btn-outline-danger btn-sm action-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#disableEmployeeModal"
+                                            data-employee-id="{{ $employee->id }}">
+
+
+                                            <i class="bi bi-trash"></i>
+
+
+                                        </button>
+
+
+
+                                    </div>
+
+
+                                </td>
+
+
+
+                            </tr>
+
+
+
+                        @empty
+
+
+                            <tr>
+
+                                <td colspan="8"
+                                    class="text-center">
+
+                                    Aucun contrat CDD trouvé
+
+                                </td>
+
+                            </tr>
+
+
+                        @endforelse
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+
+
             </div>
 
+
+
+
+
+            {{-- FOOTER --}}
+            <div class="card-footer clearfix">
+
+
+                <div class="float-end">
+
+                    {{ $employees->links('pagination::bootstrap-5') }}
+
+                </div>
+
+
+            </div>
+
+
+
         </div>
 
-        <div class="card-footer clearfix">
-            <ul class="pagination pagination-sm m-0 float-end">
-                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-            </ul>
-        </div>
 
     </div>
 
+
+
     @include('Employee.Modal.disable')
 
-@endsection
+
+
+    <style>
+
+        .action-btn i{
+
+            transition:.3s;
+
+        }
+
+
+        .action-btn:hover i{
+
+            transform:scale(1.2);
+
+        }
+
+
+    </style>
 
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
 
-<script>
-    $(document).ready(function () {
 
-        $('#searchEmployee').on('keyup', function () {
+        document
+            .getElementById('searchEmployee')
+            .addEventListener('keyup',function(){
 
-            let search = $(this).val();
 
-            $.ajax({
-                url: "{{ route('employee.search') }}",
-                type: "GET",
-                data: {search: search},
-                success: function (data) {
-                    $('#employeeTable').html(data);
-                }
+                let value=this.value.toLowerCase();
+
+
+
+                document
+                    .querySelectorAll('#employeeTable tbody tr')
+                    .forEach(function(row){
+
+
+                        row.style.display =
+                            row.innerText.toLowerCase().includes(value)
+                                ? ''
+                                : 'none';
+
+
+                    });
+
+
             });
 
-        });
 
-    });
-</script>
+    </script>
 
 
+@endsection

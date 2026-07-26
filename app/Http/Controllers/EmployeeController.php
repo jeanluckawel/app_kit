@@ -1004,7 +1004,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::where('status', 1)
             ->latest('id')
-            ->paginate(5);
+            ->paginate(50);
 
 
         return view('Employee.list', compact('employees'));
@@ -1040,7 +1040,7 @@ class EmployeeController extends Controller
             ->whereHas('company', function ($q) {
                 $q->where('contract_type', 'CDD');
             })
-            ->get();
+            ->paginate(50);
 
         return view('Employee.cdd', compact('employees'));
     }
@@ -1052,7 +1052,7 @@ class EmployeeController extends Controller
             ->whereHas('company', function ($q) {
                 $q->where('contract_type', 'CDI');
             })
-            ->get();
+            ->paginate(50);
 
         return view('Employee.cdi', compact('employees'));
     }
