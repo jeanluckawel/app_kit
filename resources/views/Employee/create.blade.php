@@ -256,16 +256,19 @@
                                 <label class="form-label fw-bold">
                                     Marital Status <span class="text-danger">*</span>
                                 </label>
+
                                 <select name="marital_status" class="form-select" style="border-radius:0;"
                                         required
                                         oninvalid="this.setCustomValidity('Please select marital status')"
                                         oninput="this.setCustomValidity('')"
                                         autocomplete="kit-services-sarl">
+
                                     <option value="">Select</option>
                                     <option value="single">Single</option>
                                     <option value="married">Married</option>
                                     <option value="divorced">Divorced</option>
                                     <option value="widowed">Widowed</option>
+
                                 </select>
                             </div>
 
