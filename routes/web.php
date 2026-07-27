@@ -1,6 +1,7 @@
 <?php
 
 use App\Exports\ChildrenExport;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
@@ -336,6 +337,10 @@ Route::middleware(['auth','verified'])->group(function () {
             Route::delete('/{voucher}', [FlourVoucherController::class, 'destroy'])
                 ->name('destroy');
         });
+
+
+    Route::get('/about', [AboutController::class, 'index'])
+        ->name('about');
 
 
 
