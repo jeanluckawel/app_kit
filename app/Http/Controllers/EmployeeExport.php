@@ -16,12 +16,17 @@ class EmployeeExport extends Controller
 
     }
 
-    public function export( Request $request)
+    public function export(Request $request)
     {
+        $filters = [
+            'gender' => $request->input('gender'),
+            'contract_type' => $request->input('contract_type'),
+            'status' => $request->input('status'),
+        ];
+
         return Excel::download(
-            new EmployeesExport($request->only(['gender','contract_type'])),
+            new EmployeesExport($filters),
             'employees.xlsx'
         );
-
     }
 }
