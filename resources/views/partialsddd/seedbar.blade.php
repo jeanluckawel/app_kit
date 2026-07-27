@@ -248,6 +248,24 @@
                 @endcan
             @endcanany
 
+                <li class="nav-item">
+
+                    <a href="{{ route('about') }}"
+                       class="nav-link">
+
+
+                        <i class="bi bi-info-circle"></i>
+
+
+                        <span>
+            À propos
+        </span>
+
+
+                    </a>
+
+                </li>
+
         </ul>
     </nav>
 </div>
