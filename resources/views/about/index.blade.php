@@ -82,11 +82,11 @@
                         <tr>
 
                             <th>
-                                Test
+                                Code
                             </th>
 
                             <td>
-                                e675RWEDTSAGCVBNMBXSAGX Test
+                                e675RWEDTSAGCVBNMBXSAGX
                             </td>
 
                         </tr>
