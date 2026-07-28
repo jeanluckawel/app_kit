@@ -347,7 +347,7 @@
 
                 <li class="nav-item">
 
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('employee.portail.family') }}" class="nav-link">
 
                         <i class="nav-icon bi bi-people-fill text-purple"></i>
 

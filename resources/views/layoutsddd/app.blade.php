@@ -92,33 +92,6 @@
             <!--end::Start Navbar Links-->
             <!--begin::End Navbar Links-->
             <ul class="navbar-nav ms-auto">
-
-{{--                <li class="nav-item dropdown">--}}
-{{--                    <a class="nav-link" data-bs-toggle="dropdown" href="#">--}}
-{{--                        <i class="bi bi-bell-fill"></i>--}}
-{{--                        <span class="navbar-badge badge text-bg-warning">15</span>--}}
-{{--                    </a>--}}
-{{--                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">--}}
-{{--                        <span class="dropdown-item dropdown-header">15 Notifications</span>--}}
-{{--                        <div class="dropdown-divider"></div>--}}
-{{--                        <a href="#" class="dropdown-item">--}}
-{{--                            <i class="bi bi-envelope me-2"></i> 4 new messages--}}
-{{--                            <span class="float-end text-secondary fs-7">3 mins</span>--}}
-{{--                        </a>--}}
-{{--                        <div class="dropdown-divider"></div>--}}
-{{--                        <a href="#" class="dropdown-item">--}}
-{{--                            <i class="bi bi-people-fill me-2"></i> 8 friend requests--}}
-{{--                            <span class="float-end text-secondary fs-7">12 hours</span>--}}
-{{--                        </a>--}}
-{{--                        <div class="dropdown-divider"></div>--}}
-{{--                        <a href="#" class="dropdown-item">--}}
-{{--                            <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports--}}
-{{--                            <span class="float-end text-secondary fs-7">2 days</span>--}}
-{{--                        </a>--}}
-{{--                        <div class="dropdown-divider"></div>--}}
-{{--                        <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>--}}
-{{--                    </div>--}}
-{{--                </li>--}}
                 @include('partials.notifications')
                 <!--end::Notifications Dropdown Menu-->
                 <!--begin::Fullscreen Toggle-->
@@ -159,52 +132,81 @@
                         $colors = ['#dc3545', '#0d6efd', '#198754', '#6f42c1', '#fd7e14'];
                         $bgColor = $colors[crc32($name) % count($colors)];
                     @endphp
-
-
-
-
                     <li class="nav-item dropdown user-menu">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                         <span class="d-none d-md-inline d-lg-inline"
-                               style="
-                                    background: {{ $bgColor }};
-                                    color: white;
-                                    border-radius: 100%;
-                                    padding: 0.2rem 0.5rem;
-                                    margin-right: 5px;
-                                    font-weight: 600;
-                                  ">
-                                {{ $initials }}
-                            </span>
+                        <a href="#" class="nav-link dropdown-toggle d-flex align-items-center"
+                           data-bs-toggle="dropdown">
 
-                            <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                            <img
+                                src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background={{ ltrim($bgColor,'#') }}&color=fff&bold=true&size=128"
+                                class="rounded-circle shadow-sm"
+                                width="35"
+                                height="35"
+                                alt="{{ Auth::user()->name }}"
+                            >
+
+                            <span class="ms-2 d-none d-md-inline">
+                                {{ Auth::user()->name }}
+                            </span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                            <!--begin::User Image-->
-                            <li class="user-header text-bg-primary">
-                                <div class="user-image rounded-circle shadow d-flex align-items-center justify-content-center bg-warning text-white fw-bold"
-                                     style="width:40px; height:40px; text-align: center; display: flex; align-items: center; justify-content: center;">
-                                    {{ $initials }}
-                                </div>
-                                <p>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="min-width: 280px;">
+
+                            <li class="text-center py-4 bg-primary text-white rounded-top">
+
+                                <img
+                                    src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background={{ ltrim($bgColor,'#') }}&color=fff&bold=true&size=180"
+                                    class="rounded-circle shadow border border-3 border-white mb-3"
+                                    width="80"
+                                    height="80"
+                                    alt="{{ Auth::user()->name }}"
+                                >
+
+                                <h6 class="mb-1 fw-bold">
                                     {{ Auth::user()->name }}
-                                    <small>{{ Auth::user()->email }}</small>
-                                </p>
+                                </h6>
+
+                                <small class="opacity-75">
+                                    {{ Auth::user()->email }}
+                                </small>
+
                             </li>
 
-                            <li class="user-footer">
-                                <a href="{{ route('users.edit', auth()->user()->id) }}" class="btn btn-default btn-flat">
-                                    Profile
-                                </a>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
 
-                                <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                            <li>
+                                <a href="{{ route('users.edit', auth()->user()->id) }}"
+                                   class="dropdown-item py-2">
+                                    <i class="bi bi-person-circle me-2"></i>
+                                     Profil
+                                </a>
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <li class="px-3 pb-3">
+
+                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="btn btn-default btn-flat float-end">Sign out</button>
+
+                                    <button type="submit"
+                                            class="btn w-100 text-white"
+                                            style="background-color: #ff7f00; border-color: #F7931E;">
+                                        <i class="bi bi-box-arrow-right me-2"></i>
+                                        Déconnexion
+                                    </button>
+
                                 </form>
+
                             </li>
 
                         </ul>
                     </li>
+
+
                 @endauth
                 <!--end::User Menu Dropdown-->
             </ul>
