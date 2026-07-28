@@ -248,83 +248,146 @@
                 @endcan
             @endcanany
 
+                <li class="nav-header">Portail Employé</li>
+
                 <li class="nav-item">
 
-                    <a href="{{ route('about') }}"
-                       class="nav-link">
+                    <a href="#" class="nav-link">
 
+                        <i class="nav-icon bi bi-info-circle text-purple"></i>
 
-                        <i class="bi bi-info-circle"></i>
-
-
-                        <span>
+                        <p>
                             À propos
-                        </span>
-
-
-
-
+                        </p>
 
                     </a>
 
                 </li>
+
                 <li class="nav-item">
 
-                    <a href="#"
-                       class="nav-link">
+                    <a href="#" class="nav-link">
 
-                        <i class="bi bi-person"></i>
-                        <span> Mon profil</span>
+                        <i class="nav-icon bi bi-speedometer text-purple"></i>
+
+                        <p>
+                            Tableau de bord
+                        </p>
+
                     </a>
-                 </li>
 
-                 <li class="nav-item">
+                </li>
 
-                    <a href="#"
-                       class="nav-link">
 
-                        <i class="bi bi-paypal"></i>
-                        <span> Ma paie</span>
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link">
+
+                        <i class="nav-icon bi bi-person-circle text-purple"></i>
+
+                        <p>
+                            Profil
+                        </p>
+
                     </a>
-                 </li>
 
-                 <li class="nav-item">
+                </li>
 
-                    <a href="#"
-                       class="nav-link">
 
-                        <i class="bi bi-chevron-contract"></i>
-                        <span> Mon contrat</span>
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link">
+
+                        <i class="nav-icon bi bi-wallet2 text-purple"></i>
+
+                        <p>
+                            Paie
+                        </p>
+
                     </a>
-                 </li>
 
-                 <li class="nav-item">
+                </li>
 
-                    <a href="#"
-                       class="nav-link">
 
-                        <i class="bi bi-file"></i>
-                        <span> Mes documents</span>
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link">
+
+                        <i class="nav-icon bi bi-file-earmark-text text-purple"></i>
+
+                        <p>
+                            Contrat
+                        </p>
+
                     </a>
-                 </li>
-                 <li class="nav-item">
 
-                    <a href="#"
-                       class="nav-link">
+                </li>
 
-                        <i class="bi bi-person-hearts"></i>
-                        <span> Ma famille</span>
+
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link">
+
+                        <i class="nav-icon bi bi-folder2-open text-purple"></i>
+
+                        <p>
+                            Documents
+                        </p>
+
                     </a>
-                 </li>
-                 <li class="nav-item">
 
-                    <a href="#"
-                       class="nav-link">
+                </li>
 
-                        <i class="bi bi-gear"></i>
-                        <span>Paramètres</span>
+
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link">
+
+                        <i class="nav-icon bi bi-people-fill text-purple"></i>
+
+                        <p>
+                            Famille
+                        </p>
+
                     </a>
-                 </li>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link">
+
+                        <i class="nav-icon bi bi-gear-fill text-purple"></i>
+
+                        <p>
+                            Paramètres
+                        </p>
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <form method="POST" action="#">
+
+                        @csrf
+
+                        <button type="submit" class="nav-link border-0 bg-transparent w-100 text-start">
+
+                            <i class="nav-icon bi bi-box-arrow-right text-purple"></i>
+
+                            <p>
+                                Déconnexion
+                            </p>
+
+                        </button>
+
+                    </form>
+
+                </li>
         </ul>
     </nav>
 </div>
