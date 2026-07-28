@@ -268,7 +268,63 @@
                     </a>
 
                 </li>
+                <li class="nav-item">
 
+                    <a href="#"
+                       class="nav-link">
+
+                        <i class="bi bi-person"></i>
+                        <span> Mon profil</span>
+                    </a>
+                 </li>
+
+                 <li class="nav-item">
+
+                    <a href="#"
+                       class="nav-link">
+
+                        <i class="bi bi-paypal"></i>
+                        <span> Ma paie</span>
+                    </a>
+                 </li>
+
+                 <li class="nav-item">
+
+                    <a href="#"
+                       class="nav-link">
+
+                        <i class="bi bi-chevron-contract"></i>
+                        <span> Mon contrat</span>
+                    </a>
+                 </li>
+
+                 <li class="nav-item">
+
+                    <a href="#"
+                       class="nav-link">
+
+                        <i class="bi bi-file"></i>
+                        <span> Mes documents</span>
+                    </a>
+                 </li>
+                 <li class="nav-item">
+
+                    <a href="#"
+                       class="nav-link">
+
+                        <i class="bi bi-person-hearts"></i>
+                        <span> Ma famille</span>
+                    </a>
+                 </li>
+                 <li class="nav-item">
+
+                    <a href="#"
+                       class="nav-link">
+
+                        <i class="bi bi-gear"></i>
+                        <span>Paramètres</span>
+                    </a>
+                 </li>
         </ul>
     </nav>
 </div>
