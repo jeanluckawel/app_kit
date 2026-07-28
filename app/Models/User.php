@@ -21,8 +21,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+
         'email',
+
+        'employee_id',
+
         'password',
+
+        'must_change_password',
+
+        'role',
     ];
 
     /**
@@ -45,11 +53,12 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'must_change_password' => 'boolean',
         ];
     }
     public function u_role()
     {
-        return $this->hasOne(Role::class, 'id', 'id'); // ça ne fait pas vraiment sens ici
+        return $this->hasOne(Role::class, 'id', 'id');
     }
 
 

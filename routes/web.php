@@ -370,4 +370,48 @@ route::get('/portail/dashboard', function () {
     return view('portail.employee.dashboard');
 })->name('portail.dashboard');
 
+
+
+Route::prefix('portail')
+    ->name('employee.')
+    ->group(function () {
+
+        Route::middleware('guest')->group(function(){
+
+            Route::get('/login',
+                [\App\Http\Controllers\Employee\Auth\AuthenticatedSessionController::class,'create']
+            )->name('login');
+
+
+
+            Route::post('/login',
+                [\App\Http\Controllers\Employee\Auth\AuthenticatedSessionController::class,'store']
+            )->name('login.store');
+
+
+        });
+
+        Route::middleware('auth')->group(function(){
+
+
+            Route::get('/dashboard', function(){
+
+
+                return view('portail.employee.dashboard');
+
+
+            })->name('dashboard');
+
+            Route::post('/logout',
+
+                [\App\Http\Controllers\Employee\Auth\AuthenticatedSessionController::class,'destroy']
+
+            )->name('logout');
+
+
+        });
+
+
+    });
+
 require __DIR__.'/auth.php';

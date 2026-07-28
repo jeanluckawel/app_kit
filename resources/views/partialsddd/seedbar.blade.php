@@ -89,21 +89,27 @@
                     </li>
             @endcanany
 
-                <li class="nav-header">Payroll</li>
+                @canany(['payroll_create','payroll_list'])
+                    <li class="nav-header">Payroll</li>
 
-                <li class="nav-item">
-                    <a href="{{ route('quick_pay') }}" class="nav-link">
-                        <i class="nav-icon bi bi-plus-circle-fill text-primary"></i>
-                        <p>Create Payroll</p>
-                    </a>
-                </li>
+                    @can('payroll_create')
+                        <li class="nav-item">
+                            <a href="{{ route('quick_pay') }}" class="nav-link">
+                                <i class="nav-icon bi bi-plus-circle-fill text-primary"></i>
+                                <p>Create Payroll</p>
+                            </a>
+                        </li>
+                    @endcan
 
-                <li class="nav-item">
-                    <a href="{{ route('quick-pay.list') }}" class="nav-link">
-                        <i class="nav-icon bi bi-receipt-cutoff text-primary"></i>
-                        <p>Payroll List</p>
-                    </a>
-                </li>
+                    @can('payroll_list')
+                        <li class="nav-item">
+                            <a href="{{ route('quick-pay.list') }}" class="nav-link">
+                                <i class="nav-icon bi bi-receipt-cutoff text-primary"></i>
+                                <p>Payroll List</p>
+                            </a>
+                        </li>
+                    @endcan
+                @endcanany
 
 
 {{--            @canany(['payroll_list','payroll_history','payroll_export_view'])--}}

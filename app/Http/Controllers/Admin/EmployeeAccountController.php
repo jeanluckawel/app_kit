@@ -13,14 +13,18 @@ class EmployeeAccountController extends Controller
     //
     public function store(Request $request)
     {
+
         $request->validate([
             'employee_id' => 'required',
         ]);
+
+
 
         $employee = Employee::where(
             'employee_id',
             $request->employee_id
         )->first();
+
 
 
         if (!$employee) {
@@ -33,20 +37,24 @@ class EmployeeAccountController extends Controller
         }
 
 
+
+
         $exist = User::where(
             'employee_id',
             $employee->employee_id
         )->first();
 
 
+
         if ($exist) {
 
             return back()->with(
                 'error',
-                'Ce employé possède déjà un compte.'
+                'Cet employé possède déjà un compte.'
             );
 
         }
+
 
 
 
@@ -67,9 +75,11 @@ class EmployeeAccountController extends Controller
         ]);
 
 
+
         return back()->with(
             'success',
-            'Compte employé créé avec succès.'
+            'Compte employé créé avec succès. Mot de passe par défaut : password'
         );
+
     }
 }
