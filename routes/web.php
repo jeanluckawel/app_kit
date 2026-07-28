@@ -366,4 +366,8 @@ Route::prefix('portail')->name('employee.')->group(function () {
 
 });
 
+route::get('/portail/dashboard', function () {
+    return view('portail.employee.dashboard');
+})->name('portail.dashboard');
+
 require __DIR__.'/auth.php';
