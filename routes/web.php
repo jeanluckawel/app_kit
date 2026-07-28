@@ -2,6 +2,7 @@
 
 use App\Exports\ChildrenExport;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
@@ -341,6 +342,28 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/about', [AboutController::class, 'index'])
         ->name('about');
+
+
+
+    Route::prefix('portail')->name('employee.')->group(function () {
+
+        Route::middleware('guest:employee')->group(function () {
+            Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+                ->name('login');
+
+            Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+        });
+
+        Route::middleware('auth:employee')->group(function () {
+            Route::get('/dashboard', function () {
+                return view('portail.employee.dashboard');
+            })->name('dashboard');
+
+            Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+                ->name('logout');
+        });
+
+    });
 
 
 
