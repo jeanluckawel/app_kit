@@ -125,4 +125,9 @@ class AuthenticatedSessionController extends Controller
 
     }
 
+    public function destroy()
+    {
+
+    }
+
 }
