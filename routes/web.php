@@ -413,5 +413,6 @@ Route::prefix('portail')
 
 
     });
+Route::get('/profil', [\App\Http\Controllers\Portail\Employee::class,'index'])->name('portail.profil');
 
 require __DIR__.'/auth.php';
