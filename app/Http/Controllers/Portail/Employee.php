@@ -10,6 +10,7 @@ class Employee extends Controller
     public function index()
     {
         $employees = Auth::user()->employee;
+        
         return view('portail.employee.profil', compact('employees'));
     }
 

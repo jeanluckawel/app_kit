@@ -93,27 +93,42 @@
 
                                     <tr>
                                         <td><strong>Nom complet</strong></td>
-                                        <td>Jean Luc Kawel A Mbumb</td>
+                                        <td>{{ $employees->full_name ?? 'Nom non défini' }}</td>
                                     </tr>
 
                                     <tr>
                                         <td><strong>Sexe</strong></td>
-                                        <td>Masculin</td>
+                                        {{-- @php
+                                            if($employees->gender == 'M')
+                                            {
+                                                $getGender = 'Masculin';
+                                            }
+                                            else
+                                            {
+                                                $getGender = 'Féminin';
+                                            }
+                                        @endphp --}}
+                                        <td>{{ $employees->gender_label ?? 'Genre non défini' }}</td>
                                     </tr>
 
                                     <tr>
                                         <td><strong>Date de naissance</strong></td>
-                                        <td>15/03/1995</td>
+                                        @php
+                                            use Carbon\Carbon;
+
+
+                                        @endphp
+                                        <td>{{ Carbon::parse($employees->date_of_birth)->locale('fr')->translatedFormat('j F Y') ?? 'Date non définie' }}</td>
                                     </tr>
 
                                     <tr>
                                         <td><strong>Numéro carte</strong></td>
-                                        <td>NN338638245</td>
+                                        <td>{{ $employees->number_card ?? 'Numéro non défini' }}</td>
                                     </tr>
 
                                     <tr>
                                         <td><strong>Pays</strong></td>
-                                        <td>République Démocratique du Congo</td>
+                                        <td>{{ $employees->pays ?? 'Pays non défini' }}</td>
                                     </tr>
 
                                     </tbody>
@@ -135,22 +150,22 @@
 
                                     <tr>
                                         <td><strong>Situation familiale</strong></td>
-                                        <td>Célibataire</td>
+                                        <td>{{ $employees->martial_status ?? 'Situation non définie' }}</td>
                                     </tr>
 
                                     <tr>
                                         <td><strong>Téléphone</strong></td>
-                                        <td>+243 974 453 545</td>
+                                        <td>{{ $employees->phone ?? 'Téléphone non défini' }}</td>
                                     </tr>
 
                                     <tr>
                                         <td><strong>Email</strong></td>
-                                        <td>agent@kitservices.com</td>
+                                        <td>{{ $employees->email ?? 'Email non défini' }}</td>
                                     </tr>
 
                                     <tr>
                                         <td><strong>Adresse</strong></td>
-                                        <td>Kolwezi, Lualaba</td>
+                                        <td>{{ $employees->address ?? 'Adresse non définie' }}</td>
                                     </tr>
 
                                     </tbody>

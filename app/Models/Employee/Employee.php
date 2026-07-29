@@ -72,4 +72,13 @@ class Employee extends Model
             $this->last_name
         );
     }
+    public function getGenderLabelAttribute()
+    {
+    //     return $this->gender === 'M' ? 'Masculin' : 'Féminin';
+        return match ($this->gender) {
+            'M' => 'Masculin',
+            'F' => 'Féminin',
+            default => 'Inconnu',
+        };
+    }
 }
