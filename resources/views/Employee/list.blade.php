@@ -1,98 +1,75 @@
 @extends('layoutsddd.app')
 
-@section('title','Liste des employés')
+@section('title','Historique des paies')
 
 @section('content')
 
     <div class="container-fluid p-5">
 
+
         <div class="row justify-content-center">
+
 
             <div class="col-md-12">
 
+
                 <div class="card shadow-sm mb-4">
+
 
                     {{-- HEADER --}}
                     <div class="card-header d-flex align-items-center"
                          style="background:#FF6600;color:#fff;">
 
 
-                        {{-- TITRE --}}
                         <h3 class="card-title mb-0">
 
-                            <i class="bi bi-people-fill me-2"></i>
+                            <i class="bi bi-wallet-fill me-2"></i>
 
-                            Liste des employés
+                            Historique des paies
 
                         </h3>
 
 
 
-                        {{-- OUTILS --}}
                         <div class="card-tools ms-auto d-flex align-items-center gap-2">
 
 
-                            {{-- RECHERCHE --}}
                             <input
                                 type="text"
-                                id="searchEmployee"
+                                id="searchPayroll"
                                 class="form-control form-control-sm"
                                 style="width:230px;"
-                                placeholder="Rechercher un employé...">
+                                placeholder="Rechercher une paie...">
 
 
 
-                            {{-- AJOUT --}}
-                            @can('employee_create')
-
-                                <a href="{{ route('employee.create') }}"
-                                   class="btn btn-light btn-sm fw-semibold"
-                                   style="color:#FF6600;">
-
-                                    <i class="bi bi-person-plus-fill me-1"></i>
-
-                                    Ajouter
-
-                                </a>
-
-                            @endcan
-
-
-
-                            {{-- SEPARATEUR --}}
                             <div style="height:25px;border-left:1px solid rgba(255,255,255,.5);"></div>
 
 
 
-                            {{-- BREADCRUMB --}}
                             <nav aria-label="breadcrumb">
 
                                 <ol class="breadcrumb mb-0">
 
 
-                                    @can('dashboard')
+                                    <li class="breadcrumb-item">
 
-                                        <li class="breadcrumb-item">
+                                        <a href="#"
+                                           class="text-white text-decoration-none">
 
-                                            <a href="{{ route('dashboard') }}"
-                                               class="text-white text-decoration-none">
+                                            <i class="bi bi-house-door-fill me-1"></i>
 
-                                                <i class="bi bi-house-door-fill me-1"></i>
+                                            Tableau de bord
 
-                                                Tableau de bord
+                                        </a>
 
-                                            </a>
-
-                                        </li>
-
-                                    @endcan
+                                    </li>
 
 
 
-                                    <li class="breadcrumb-item active text-white"
-                                        aria-current="page">
+                                    <li class="breadcrumb-item active text-white">
 
-                                        Employés
+                                        Paies
 
                                     </li>
 
@@ -107,6 +84,10 @@
 
                     </div>
 
+
+
+
+
                     {{-- BODY --}}
                     <div class="card-body">
 
@@ -115,7 +96,7 @@
 
 
                             <table class="table table-bordered table-hover align-middle"
-                                   id="employeeTable">
+                                   id="payrollTable">
 
 
                                 <thead class="table-light">
@@ -123,23 +104,45 @@
 
                                 <tr>
 
-                                    <th>#</th>
+                                    <th>
+                                        #
+                                    </th>
 
-                                    <th>Employé</th>
 
-                                    <th>Département</th>
+                                    <th>
+                                        Employé
+                                    </th>
 
-                                    <th>Âge</th>
 
-                                    <th>Salaire</th>
+                                    <th>
+                                        Mois
+                                    </th>
 
-                                    <th>Date d'embauche</th>
 
-                                    <th>Contrat</th>
+                                    <th>
+                                        Salaire de base
+                                    </th>
+
+
+                                    <th>
+                                        Prime
+                                    </th>
+
+
+                                    <th>
+                                        Retenue
+                                    </th>
+
+
+                                    <th>
+                                        Net à payer
+                                    </th>
+
 
                                     <th class="text-center">
-                                        Actions
+                                        Action
                                     </th>
+
 
                                 </tr>
 
@@ -151,270 +154,186 @@
                                 <tbody>
 
 
-                                @forelse($employees as $employee)
+                                <tr>
 
 
-                                    <tr>
+                                    <td>
+                                        1
+                                    </td>
 
 
-                                        <td>
+                                    <td>
 
-                                            {{ $employees->firstItem()+$loop->index }}
+                                        <strong>
+                                            Jean Luc Kawel A Mbumb
+                                        </strong>
 
-                                        </td>
+                                        <br>
 
+                                        <small class="text-muted">
+                                            EMP001
+                                        </small>
 
+                                    </td>
 
-                                        <td>
 
 
-                                            <div class="d-flex align-items-center gap-2">
+                                    <td>
+                                        Janvier 2026
+                                    </td>
 
 
-                                                @php
 
-                                                    $initials =
-                                                    strtoupper(
-                                                        substr($employee->first_name,0,1)
-                                                        .
-                                                        substr($employee->last_name,0,1)
-                                                    );
+                                    <td>
+                                        500 000 FC
+                                    </td>
 
-                                                @endphp
 
 
+                                    <td>
+                                        50 000 FC
+                                    </td>
 
-                                                @if($employee->photo)
 
 
-                                                    <img
-                                                        src="{{ asset('storage/'.$employee->photo) }}"
-                                                        class="rounded-circle"
-                                                        width="45"
-                                                        height="45">
+                                    <td>
+                                        0 FC
+                                    </td>
 
 
-                                                @else
 
+                                    <td>
 
-                                                    <div class="rounded-circle d-flex justify-content-center align-items-center"
-                                                         style="width:45px;height:45px;background:#FF6600;color:white;font-weight:bold;">
+                                        <strong>
+                                            550 000 FC
+                                        </strong>
 
-                                                        {{ $initials }}
+                                    </td>
 
-                                                    </div>
 
 
-                                                @endif
+                                    <td class="text-center">
 
+                                        <div class="d-flex justify-content-center gap-1">
 
 
-                                                <div>
+                                            <a href="#"
+                                               class="btn btn-outline-primary btn-sm action-btn view-btn"
+                                               title="Voir">
 
+                                                <i class="bi bi-eye"></i>
 
-                                                    <strong>
+                                            </a>
 
-                                                        {{ $employee->first_name }}
-                                                        {{ $employee->last_name }}
 
-                                                    </strong>
 
+                                            <a href="#"
+                                               class="btn btn-outline-success btn-sm action-btn download-btn"
+                                               title="Télécharger">
 
-                                                    <br>
+                                                <i class="bi bi-download"></i>
 
+                                            </a>
 
-                                                    <small class="text-muted">
 
-                                                        {{ $employee->employee_id }}
+                                        </div>
 
-                                                    </small>
+                                    </td>
 
 
-                                                </div>
+                                </tr>
 
 
-                                            </div>
 
 
-                                        </td>
+                                <tr>
 
 
+                                    <td>
+                                        2
+                                    </td>
 
 
-                                        <td>
+                                    <td>
 
-                                            {{ $employee->company?->departmentRelation?->name ?? 'N/A' }}
+                                        <strong>
+                                            Jean Luc Kawel A Mbumb
+                                        </strong>
 
-                                        </td>
+                                        <br>
 
+                                        <small class="text-muted">
+                                            EMP001
+                                        </small>
 
+                                    </td>
 
 
-                                        <td>
 
-                                            {{ $employee->age >= 1 ? $employee->age.' '.($employee->age > 1 ? 'ans' : 'an') : '-' }}
+                                    <td>
+                                        Décembre 2025
+                                    </td>
 
-                                        </td>
 
 
+                                    <td>
+                                        500 000 FC
+                                    </td>
 
 
-                                        <td>
 
-                                            <strong>
+                                    <td>
+                                        0 FC
+                                    </td>
 
-                                                {{ number_format($employee->salaries->base_salary ?? 0,2,',',' ') }}
 
-                                            </strong>
 
-                                        </td>
+                                    <td>
+                                        20 000 FC
+                                    </td>
 
 
 
+                                    <td>
 
-                                        <td>
+                                        <strong>
+                                            480 000 FC
+                                        </strong>
 
-                                            {{ $employee->company?->hire_date ?? 'N/A' }}
+                                    </td>
 
-                                        </td>
 
 
+                                    <td class="text-center">
 
 
-                                        <td>
+                                        <div class="d-flex justify-content-center gap-1">
 
 
-                                            @php
+                                            <a href="#"
+                                               class="btn btn-outline-primary btn-sm action-btn view-btn">
 
-                                                $type = $employee->company?->contract_type;
+                                                <i class="bi bi-eye"></i>
 
-                                                $endDate = $employee->company?->end_contract_date;
+                                            </a>
 
-                                            @endphp
 
 
+                                            <a href="#"
+                                               class="btn btn-outline-success btn-sm action-btn download-btn">
 
-                                            @if(strtoupper($type)=='CDD')
+                                                <i class="bi bi-download"></i>
 
+                                            </a>
 
-                                                <span class="badge"
-                                                      style="background:#FF6600;">
 
+                                        </div>
 
-                                                {{ $type }}
 
+                                    </td>
 
-                                                    @if($endDate)
 
-                                                        ({{ \Carbon\Carbon::parse($endDate)->format('d/m/Y') }})
-
-                                                    @endif
-
-
-                                            </span>
-
-
-
-                                            @elseif(strtoupper($type)=='CDI')
-
-
-                                                <span class="badge bg-danger">
-
-                                                {{ $type }}
-
-                                            </span>
-
-
-
-                                            @else
-
-                                                -
-
-                                            @endif
-
-
-                                        </td>
-
-
-
-
-                                        <td class="text-center">
-
-
-                                            <div class="d-flex justify-content-center gap-1">
-
-
-                                                @can('employee_view')
-
-                                                    <a href="{{ route('employee.view',$employee->id) }}"
-                                                       class="btn btn-outline-primary btn-sm action-btn view-btn">
-
-                                                        <i class="bi bi-eye"></i>
-
-                                                    </a>
-
-                                                @endcan
-
-
-
-
-                                                @can('employee_edit')
-
-                                                    <a href="{{ route('employee.edit',$employee->id) }}"
-                                                       class="btn btn-outline-warning btn-sm action-btn edit-btn">
-
-                                                        <i class="bi bi-pencil-square"></i>
-
-                                                    </a>
-
-                                                @endcan
-
-
-
-
-                                                @can('employee_disable')
-
-                                                    <button
-                                                        class="btn btn-outline-danger btn-sm action-btn delete-btn"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#disableEmployeeModal"
-                                                        data-employee-id="{{ $employee->id }}">
-
-                                                        <i class="bi bi-trash"></i>
-
-                                                    </button>
-
-                                                @endcan
-
-
-
-                                            </div>
-
-
-                                        </td>
-
-
-                                    </tr>
-
-
-
-                                @empty
-
-
-                                    <tr>
-
-                                        <td colspan="8"
-                                            class="text-center">
-
-                                            Aucun employé trouvé
-
-                                        </td>
-
-                                    </tr>
-
-
-                                @endforelse
-
+                                </tr>
 
 
                                 </tbody>
@@ -433,13 +352,11 @@
                     {{-- FOOTER --}}
                     <div class="card-footer clearfix">
 
-
                         <div class="float-end">
 
-                            {{ $employees->links('pagination::bootstrap-5') }}
+                            Pagination
 
                         </div>
-
 
                     </div>
 
@@ -457,21 +374,16 @@
     </div>
 
 
-    @include('Employee.Modal.disable')
-
 
 
     <style>
 
-
-        /* Hover uniquement sur les icônes actions */
 
         .action-btn i{
 
             transition:0.3s;
 
         }
-
 
 
         .view-btn:hover i{
@@ -483,20 +395,9 @@
         }
 
 
+        .download-btn:hover i{
 
-        .edit-btn:hover i{
-
-            color:#ff9800;
-
-            transform:scale(1.2);
-
-        }
-
-
-
-        .delete-btn:hover i{
-
-            color:#dc3545;
+            color:#198754;
 
             transform:scale(1.2);
 
@@ -510,7 +411,7 @@
     <script>
 
         document
-            .getElementById('searchEmployee')
+            .getElementById('searchPayroll')
             .addEventListener('keyup',function(){
 
 
@@ -519,19 +420,17 @@
 
 
                 document
-                    .querySelectorAll('#employeeTable tbody tr')
+                    .querySelectorAll('#payrollTable tbody tr')
                     .forEach(function(row){
 
 
                         let text=row.innerText.toLowerCase();
 
 
-
                         row.style.display =
                             text.includes(value)
                                 ? ''
                                 : 'none';
-
 
 
                     });

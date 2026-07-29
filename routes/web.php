@@ -414,6 +414,7 @@ Route::prefix('portail')
 
 
         Route::get('/family', [\App\Http\Controllers\Portail\Employee::class,'family'])->name('portail.family');
+        Route::get('/payroll', [\App\Http\Controllers\Portail\Employee::class,'payroll'])->name('portail.payroll');
 
     });
 Route::get('/profil', [\App\Http\Controllers\Portail\Employee::class,'index'])->name('portail.profil');

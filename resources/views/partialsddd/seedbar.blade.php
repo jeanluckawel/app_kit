@@ -302,7 +302,7 @@
 
                 <li class="nav-item">
 
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('employee.portail.payroll') }}" class="nav-link">
 
                         <i class="nav-icon bi bi-wallet2 text-purple"></i>
 

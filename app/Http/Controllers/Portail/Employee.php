@@ -25,4 +25,11 @@ class Employee extends Controller
         return view('portail.employee.family', compact('employee'));
 
     }
+
+    public function payroll()
+    {
+        $employee = Auth::user();
+
+        return view('portail.employee.payroll', compact('employee'));
+    }
 }
