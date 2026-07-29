@@ -394,13 +394,7 @@ Route::prefix('portail')
         Route::middleware('auth')->group(function(){
 
 
-            Route::get('/dashboard', function(){
-
-
-                return view('portail.employee.dashboard');
-
-
-            })->name('dashboard');
+            Route::get('/dashboard', [\App\Http\Controllers\Portail\Employee::class,'dashboard'] )->name('portail.dashboard');
 
             Route::post('/logout',
 

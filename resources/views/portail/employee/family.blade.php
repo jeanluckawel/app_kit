@@ -88,6 +88,8 @@
 
                                 <thead style="background:#FF6600;color:white;">
 
+
+
                                 <tr>
 
                                     <th width="15%">
@@ -103,31 +105,34 @@
                                 </thead>
 
                                 <tbody>
+                                @forelse($employee->children as $child)
+
+                                    <tr>
+                                        <td>
+                                            {{ $loop->iteration }}
+                                        </td>
+
+                                        <td>
+                                            {{ $child->full_name }}
+                                            -
+                                            {{ \Carbon\Carbon::parse($child->date_of_birth)->age }} ans
+                                            ({{ $child->gender == 'M' ? 'Masculin' : 'Féminin' }})
+                                        </td>
+                                    </tr>
+
+                                @empty
+
+                                    <tr>
+                                        <td colspan="2">
+                                            Aucun enfant enregistré
+                                        </td>
+                                    </tr>
+
+                                @endforelse
 
 
-                                <tr>
 
-                                    <td>
-                                        1
-                                    </td>
 
-                                    <td>
-                                        Jean Luc Kawel - 18 ans (M)
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        2
-                                    </td>
-
-                                    <td>
-                                        Marie Kabila - 10 ans (F)
-                                    </td>
-
-                                </tr>
 
                                 </tbody>
 
@@ -143,64 +148,53 @@
 
                         <div class="table-responsive">
 
-
                             <table class="table table-bordered table-hover align-middle">
-
 
                                 <thead style="background:#FF6600;color:white;">
 
-
                                 <tr>
-
-                                    <th width="15%">
-                                        #
-                                    </th>
-
-                                    <th>
-                                        Détail
-                                    </th>
-
+                                    <th width="15%">#</th>
+                                    <th>Détail</th>
                                 </tr>
 
                                 </thead>
 
+
                                 <tbody>
 
+                                @forelse($employee->dependants as $dependant)
 
-                                <tr>
+                                    <tr>
 
-                                    <td>
-                                        1
-                                    </td>
+                                        <td>
+                                            {{ $loop->iteration }}
+                                        </td>
 
-                                    <td>
-                                        Pierre Kabila - Père - +243 900 000 000
-                                    </td>
+                                        <td>
+                                            {{ $dependant->full_name }}
+                                            -
+                                            {{ $dependant->relationship }}
+                                            -
+                                            {{ $dependant->phone }}
+                                        </td>
 
-                                </tr>
+                                    </tr>
 
-                                <tr>
+                                @empty
 
-                                    <td>
-                                        2
-                                    </td>
+                                    <tr>
+                                        <td colspan="2" class="text-center">
+                                            Aucun dépendant enregistré
+                                        </td>
+                                    </tr>
 
-                                    <td>
-                                        Marie Kabila - Mère - +243 811 000 000
-                                    </td>
-
-                                </tr>
-
-
+                                @endforelse
 
                                 </tbody>
 
-
                             </table>
 
-
                         </div>
-
 
                     </div>
 
@@ -217,7 +211,6 @@
 
                                 <thead style="background:#FF6600;color:white;">
 
-
                                 <tr>
 
                                     <th width="15%">
@@ -230,27 +223,41 @@
 
                                 </tr>
 
-
                                 </thead>
-
 
 
                                 <tbody>
 
 
+                                @if($employee->emergencies)
 
-                                <tr>
+                                    <tr>
 
-                                    <td>
-                                        1
-                                    </td>
+                                        <td>
+                                            1
+                                        </td>
 
-                                    <td>
-                                        Alice Kabila - Épouse - +243 900 000 000 - Kolwezi
-                                    </td>
+                                        <td>
+                                            {{ $employee->emergencies->full_name }}
+                                            -
+                                            {{ $employee->emergencies->relationship }}
+                                            -
+                                            {{ $employee->emergencies->phone }}
+                                            -
+                                            {{ $employee->emergencies->address }}
+                                        </td>
 
-                                </tr>
+                                    </tr>
 
+                                @else
+
+                                    <tr>
+                                        <td colspan="2" class="text-center">
+                                            Aucun contact d'urgence enregistré
+                                        </td>
+                                    </tr>
+
+                                @endif
 
 
                                 </tbody>
