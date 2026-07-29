@@ -106,10 +106,16 @@ class AuthenticatedSessionController extends Controller
 
             $request->session()->regenerate();
 
+            if (Auth::user()->must_change_password) {
+
+                return redirect()->route('password.change');
+
+            }
+
 
 
             return redirect()
-                ->route('employee.dashboard');
+                ->route('employee.portail.dashboard');
 
 
         }

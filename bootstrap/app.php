@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\MustChangePassword;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -17,6 +18,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('web', [
             SetLocale::class,
         ]);
+
+        $middleware->alias([
+            'must.change.password' => MustChangePassword::class,
+        ]);
+
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

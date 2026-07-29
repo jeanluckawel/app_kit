@@ -287,7 +287,7 @@
 
                 <li class="nav-item">
 
-                    <a href="{{ route('portail.profil') }}" class="nav-link">
+                    <a href="{{ route('employee.portail.profil') }}" class="nav-link">
 
                         <i class="nav-icon bi bi-person-circle text-purple"></i>
 

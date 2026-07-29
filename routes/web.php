@@ -5,6 +5,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Employee\Auth\ChangePasswordController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeExport;
 use App\Http\Controllers\EmployeeImportController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrgController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PerceptionController;
+use App\Http\Controllers\Portail\Employee;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuickPayController;
 use App\Http\Controllers\RoleController;
@@ -355,13 +357,25 @@ Route::prefix('portail')->name('employee.')->group(function () {
         Route::post('/login', [AuthenticatedSessionController::class, 'store']);
     });
 
-    Route::middleware('auth:employee')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('portail.employee.dashboard');
-        })->name('dashboard');
+//    Route::middleware('auth:employee')->group(function () {
+//        Route::get('/dashboard', function () {
+//            return view('portail.employee.dashboard');
+//        })->name('dashboard');
+//
+//        Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+//            ->name('logout');
+//    });
 
-        Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-            ->name('logout');
+    Route::middleware([
+        'auth',
+        'must.change.password'
+    ])->group(function(){
+
+        Route::get('/dashboard',
+            [\App\Http\Controllers\Portail\Employee::class,'dashboard']
+        )->name('employee.dashboard');
+
+
     });
 
 });
@@ -372,45 +386,86 @@ route::get('/portail/dashboard', function () {
 
 
 
+
+// Portail Employé
 Route::prefix('portail')
     ->name('employee.')
     ->group(function () {
 
-        Route::middleware('guest')->group(function(){
+
+        // Connexion
+        Route::middleware('guest')->group(function () {
 
             Route::get('/login',
-                [\App\Http\Controllers\Employee\Auth\AuthenticatedSessionController::class,'create']
+                [AuthenticatedSessionController::class, 'create']
             )->name('login');
 
 
-
             Route::post('/login',
-                [\App\Http\Controllers\Employee\Auth\AuthenticatedSessionController::class,'store']
+                [AuthenticatedSessionController::class, 'store']
             )->name('login.store');
 
-
-        });
-
-        Route::middleware('auth')->group(function(){
-
-
-            Route::get('/dashboard', [\App\Http\Controllers\Portail\Employee::class,'dashboard'] )->name('portail.dashboard');
-
-            Route::post('/logout',
-
-                [\App\Http\Controllers\Employee\Auth\AuthenticatedSessionController::class,'destroy']
-
-            )->name('logout');
-
-
         });
 
 
 
-        Route::get('/family', [\App\Http\Controllers\Portail\Employee::class,'family'])->name('portail.family');
-        Route::get('/payroll', [\App\Http\Controllers\Portail\Employee::class,'payroll'])->name('portail.payroll');
+        // Routes protégées
+        Route::middleware([
+            'auth',
+            'must.change.password'
+        ])->group(function () {
+
+
+            Route::get('/dashboard',
+                [\App\Http\Controllers\Portail\Employee::class, 'dashboard']
+            )->name('portail.dashboard');
+
+
+            Route::get('/family',
+                [Employee::class, 'family']
+            )->name('portail.family');
+
+            Route::get('/profil',
+                [Employee::class, 'family']
+            )->name('portail.family');
+
+
+            Route::get('/profil',
+                [Employee::class, 'index']
+            )->name('portail.profil');
+
+            Route::get('/payroll',
+                [Employee::class, 'payroll']
+            )->name('portail.payroll');
+
+
+        });
+
+
+
+        // Déconnexion (ne pas bloquer)
+        Route::post('/logout',
+            [AuthenticatedSessionController::class, 'destroy']
+        )->middleware('auth')->name('logout');
+
 
     });
-Route::get('/profil', [\App\Http\Controllers\Portail\Employee::class,'index'])->name('portail.profil');
 
+
+
+// Changement obligatoire du mot de passe
+Route::middleware('auth')->group(function () {
+
+
+    Route::get('/change-password',
+        [ChangePasswordController::class, 'create']
+    )->name('password.change');
+
+
+    Route::post('/change-password',
+        [ChangePasswordController::class, 'store']
+    )->name('password.update');
+
+
+});
 require __DIR__.'/auth.php';
