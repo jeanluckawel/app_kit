@@ -10,38 +10,10 @@
         <div class="card mb-4 border-0"
              style="border-radius:0;">
 
-            <div class="card mb-4" style="border-radius:0;">
+            <div class="card mb-4 border-0" style="border-radius:0;">
 
-                <div class="card-body d-flex align-items-center"
+                <div class="card-body p-2"
                      style="background:#FF6600;color:white;">
-
-
-                    <div class="me-3">
-
-                        <img src="https://ui-avatars.com/api/?name=Jean+Luc+Kawel+A+Mbumb&background=ffffff&color=FF6600&size=100"
-                             alt="Profile"
-                             class="rounded-circle"
-                             width="100"
-                             height="100">
-
-                    </div>
-
-                    <div>
-
-                        <h4 class="mb-1 fw-bold">
-                            Jean Luc Kawel A Mbumb
-                        </h4>
-
-                        <p class="mb-0">
-                            Agent | Kit Services SARL
-                        </p>
-
-                        <small>
-                            Kolwezi, Lualaba - République Démocratique du Congo
-                        </small>
-
-                    </div>
-
 
                 </div>
 
@@ -192,9 +164,11 @@
 
                     </div>
 
+
                     <div class="tab-pane fade" id="password" role="tabpanel">
 
                         <div class="row g-3">
+
                             <div class="col-md-4">
                                 <label class="form-label fw-bold">
                                     Ancien mot de passe <span class="text-danger">*</span>
@@ -203,11 +177,10 @@
                                 <input type="password"
                                        name="old_password"
                                        class="form-control"
-                                       placeholder="Ancien mot de passe"
                                        required
-                                       style="border-radius:0;"
-                                       autocomplete="kit-services-sarl">
+                                       style="border-radius:0;">
                             </div>
+
 
                             <div class="col-md-4">
                                 <label class="form-label fw-bold">
@@ -217,11 +190,10 @@
                                 <input type="password"
                                        name="new_password"
                                        class="form-control"
-                                       placeholder="Nouveau mot de passe"
                                        required
-                                       style="border-radius:0;"
-                                       autocomplete="kit-services-sarl">
+                                       style="border-radius:0;">
                             </div>
+
 
                             <div class="col-md-4">
                                 <label class="form-label fw-bold">
@@ -231,11 +203,10 @@
                                 <input type="password"
                                        name="confirm_password"
                                        class="form-control"
-                                       placeholder="Confirmer le mot de passe"
                                        required
-                                       style="border-radius:0;"
-                                       autocomplete="kit-services-sarl">
+                                       style="border-radius:0;">
                             </div>
+
 
                             <div class="col-md-12 mt-3">
 
@@ -244,11 +215,14 @@
                                         style="background:#FF6600;color:white;border-radius:0;">
 
                                     Modifier
+
                                 </button>
+
                             </div>
 
                         </div>
 
+                    </div>
                     </div>
                 </div>
 
